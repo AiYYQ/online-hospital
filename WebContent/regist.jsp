@@ -12,11 +12,9 @@
 	<meta charset="UTF-8">
 	<link rel="icon" href="Images/logo_favicon.ico" type="image/x-icon" />
    <link rel="stylesheet" type="text/css" href="Css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="Css/bootstrap-responsive.css" />
     <link rel="stylesheet" type="text/css" href="Css/style.css" />
     <script type="text/javascript" src="Js/jquery.js"></script>
-    <script type="text/javascript" src="Js/jquery.sorted.js"></script>
-    <script type="text/javascript" src="Js/bootstrap.js"></script>
+
     <script type="text/javascript" src="Js/ckform.js"></script>
     <script type="text/javascript" src="Js/common.js"></script>
     <script type="text/javascript" src="Js/jquery-3.4.1.js"></script>
@@ -91,8 +89,93 @@
 			color: red;
 			font-size: 14px;
 		}
-		
     </style>  
+    <script>
+        $(function(){
+            $("form").validate({
+                rules:{
+                    name:{
+                        required:true,
+                        minlength:2,
+                        maxlength:6, 
+                    },
+                    password:{
+                        required:true,
+                        minlength:6,
+                        maxlength:14
+                    },
+                    password2:{
+                        required:true,
+                        minlength:6,
+                        maxlength:14,
+                        equalTo:'#password'
+                    },
+                    username:{
+                        required:true,
+                        minlength:2,
+                        maxlength:6,
+                        remote:{
+                            type:"post",url:"${path}user",
+                            data:{
+                                username:function(){
+                                    return $("#username").val();
+                                },
+                                method:"checkUsername"
+                            },
+                            dataType:"json"
+                        }
+                    },
+                    email:{
+                        required:true,
+                        email:true,
+                        remote:{
+                            type:"post",url:"${path}user",
+                            data:{
+                                email:function(){
+                                    return $("#email").val();
+                                },
+                                method:"checkEmail"
+                            },
+                            dataType:"json"
+                        }
+                    }
+                },
+                messages:{
+                    name:{
+                        required:"请输入姓名",
+                        minlength:"姓名最少两位",
+                        maxlength:"姓名最多六位"
+                    },
+                    password:{
+                        required:"请输入密码",
+                        minlength:"密码最少6位",
+                        maxlength:"密码最多14位"
+                    },
+                    password2:{
+                        required:"请输入确认密码",
+                        minlength:"密码最少6位",
+                        maxlength:"密码最多14位",
+                        equalTo:"两次输入密码不一致"
+                    },
+                    username:{
+                        required:"请输入用户名",
+                        minlength:"用户名最少两位",
+                        maxlength:"用户名最多6位",
+                        remote:"该用户名已经存在"
+                    },
+                    email:{
+                        required:"请输入邮箱地址",
+                        email:"请输入有效的邮箱地址",
+                        remote:"该邮箱已经存在"
+                    }
+                },
+                errorElement: "error",
+                submitHandler:function(form){
+                    form.submit();
+                }
+            })
+        })
+    </script>
 </head>
 <body>
 <div class="container">	
@@ -100,7 +183,7 @@
     	<input type="hidden" name="method" value="regist">
         <h2 class="form-signin-heading" >管理员注册</h2>
                         姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：
-		<input type="text" name="name" class="input-block-level" placeholder="账号">
+		<input id="name" type="text" name="name" class="input-block-level" placeholder="账号">
 		<br/>
                         密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：
         <input id="password" type="password" name="password" class="input-block-level" placeholder="密码">

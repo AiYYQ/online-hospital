@@ -1,5 +1,8 @@
 package xyz.cfsaisi.service;
 
-public interface UserService {
+import xyz.cfsaisi.entity.User;
 
+public interface UserService {
+	User checkUsername(String username);
+	User checkEmail(String email);
 }
