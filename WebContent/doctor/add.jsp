@@ -43,7 +43,7 @@
     <script type="text/javascript">
     $(function () {       
 		$('#backid').click(function(){
-				window.location.href="${path}doctor?method=findDoctorsByPage";
+				window.location.href="${path}doctor?method=findAllDoctor";
 		 });
     });
     </script>
@@ -52,7 +52,6 @@
 
 <form action="${path }/doctor" method="post" class="definewidth m20">
 <input type="hidden" name="method" value="insertDoctor">
-
 <table class="table table-bordered table-hover definewidth m10">
     <tr>
         <td width="10%" class="tableleft">姓名</td>

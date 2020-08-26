@@ -15,6 +15,8 @@ public class BaseServlet extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		String param = request.getParameter("method");
 		if (param!=null && param != "") {
 			Class<? extends BaseServlet> clazz = this.getClass();

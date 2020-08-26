@@ -42,7 +42,7 @@
 		<div id="left">
 			<h3>业务办理</h3>
 			<ul>
-				<li><a href="#" target="rightFrame">门诊医生管理</a></li>
+				<li><a href="doctor?method=findAllDoctor" target="rightFrame">门诊医生管理</a></li>
 				<li><a href="#" target="rightFrame">药品管理</a></li>
 				<li><a href="#" target="rightFrame">挂号信息管理</a></li>
 				<li><a href="#" target="rightFrame">住院办理</a></li>

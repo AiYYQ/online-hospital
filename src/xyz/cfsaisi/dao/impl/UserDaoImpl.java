@@ -34,11 +34,40 @@ public class UserDaoImpl implements UserDao {
 		String sql = "select email from users where email = ?";
 		User user = null;
 		try {
-			user = qRunner.query(sql, new BeanHandler<User>(User.class));
+			user = qRunner.query(sql, new BeanHandler<User>(User.class),email);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return user;
+	}
+
+	@Override
+	public boolean regist(User user) {
+		String sql = "insert into users(name,password,username,email,modifytime) values(?,?,?,?,?)";
+		int rows = 0;
+		try {
+			rows = qRunner.update(sql, user.getName(),user.getPassword(),user.getUsername(),user.getEmail(),user.getModifytime());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (rows > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public User checkLogin(String username, String password) {
+		String sql = "select * from users where username=? and password = ?";
+		User user = null;
+		try {
+			user = qRunner.query(sql, new BeanHandler<User>(User.class),username,password);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		return user;
 	}
 }

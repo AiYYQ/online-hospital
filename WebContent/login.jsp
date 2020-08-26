@@ -12,14 +12,16 @@
 	<meta charset="UTF-8">
 	<link rel="icon" href="Images/logo_favicon.ico" type="image/x-icon" />
    <link rel="stylesheet" type="text/css" href="Css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="Css/bootstrap-responsive.css" />
+    
     <link rel="stylesheet" type="text/css" href="Css/style.css" />
     <script type="text/javascript" src="Js/jquery.js"></script>
-    <script type="text/javascript" src="Js/jquery.sorted.js"></script>
+    
     <script type="text/javascript" src="Js/bootstrap.js"></script>
     <script type="text/javascript" src="Js/ckform.js"></script>
     <script type="text/javascript" src="Js/common.js"></script>
     <script type="text/javascript" src="Js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="Js/jquery.validate.js"></script>
+    <script type="text/javascript" src="Js/messages_zh.js"></script>
     <style type="text/css">
         body {
             padding-top: 140px;
@@ -87,6 +89,64 @@
 		}
 		
     </style>  
+    <script>
+        $(function(){
+            $("#code").click(function(){
+                $.post(
+                    "authImage",
+                    function(data){
+                        $("#code").attr("src","${path}authImage");
+                    }
+                )
+            });
+
+            $("form").validate({
+                rules:{
+                    username:{
+                        required:true,
+                        minlength:2,
+                        maxlength:6, 
+                    },
+                    password:{
+                        required:true,
+                        minlength:6,
+                        maxlength:14
+                    },
+                    verify:{
+                        required:true,
+                        remote:{
+                            url:"${path}user",
+                            data:{
+                                method:"checkCode",
+                            },
+                            type:"post",
+                            dataType:"json"
+                        }
+                    }
+                },
+                messages:{
+                    username:{
+                        required:"请输入用户名",
+                        minlength:"用户名最少两位",
+                        maxlength:"用户名最多6位"
+                    },
+                    password:{
+                        required:"请输入密码",
+                        minlength:"密码最少6位",
+                        maxlength:"密码最多14位"
+                    },
+                    verify:{
+                        required:"请输入验证码",
+                        remote:"验证码错误"
+                    }
+                },
+                errorLabelContainer:"#message"
+            });
+            $("#login").click(function(){
+                $("form").submit();
+            })
+        })
+    </script>
 </head>
 <body>
 <div class="container">

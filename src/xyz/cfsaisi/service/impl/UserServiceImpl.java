@@ -17,5 +17,15 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userDao.checkEmail(email);
 	}
+	@Override
+	public boolean regist(User user) {
+		// TODO Auto-generated method stub
+		return userDao.regist(user);
+	}
+	@Override
+	public User checkLogin(String username, String password) {
+		// TODO Auto-generated method stub
+		return userDao.checkLogin(username,password);
+	}
 
 }

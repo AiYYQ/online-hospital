@@ -55,41 +55,41 @@
 </head>
 <body>
 <form action="${path }doctor" method="post" class="definewidth m20">
-<input type="hidden" name="did" value=""/>
-<input type="hidden" name="method" value="updateDoctor"/>
+<input type="hidden" name="did" value="${d.did }"/>
+<input type="hidden" name="method" value="updateDoctorById"/>
 <table class="table table-bordered table-hover definewidth m10">
     <tr>
         <td width="10%" class="tableleft">姓名</td>
-        <td><input type="text" name="name" value=""/></td>
+        <td><input type="text" name="name" value="${d.name }"/></td>
     </tr>
     
     <tr>
         <td width="10%" class="tableleft">身份证号</td>
-        <td><input type="text" name="cardno" value=""/></td>
+        <td><input type="text" name="cardno" value="${d.cardno }"/></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">手机</td>
-        <td><input type="text" name="phone" value=""/></td>
+        <td><input type="text" name="phone" value="${d.phone }"/></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">性别</td>
         <td>
-        	<input type="radio" name="sex" value="0" />男&nbsp;&nbsp;&nbsp;
-        	<input type="radio" name="sex"  value="1" />女
+        	<input type="radio" name="sex" value="0" <c:if test="${d.sex==0 }">checked</c:if> />男&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="sex"  value="1" <c:if test="${d.sex==1 }">checked</c:if> />女
         </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">出生年月</td>
         <td><input type="text" name="birthday" class="Wdate" 
-        onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})" value=""/></td>
+        onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="${d.birthday }"/></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">年龄</td>
-        <td><input type="text" name="age" value=""/></td>
+        <td><input type="text" name="age" value="${d.age }"/></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">电子邮箱</td>
-        <td><input type="text" name="email" value=""/></td>
+        <td><input type="text" name="email" value="${d.email }"/></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">所属科室</td>
@@ -111,13 +111,13 @@
         		<option value="1" >专科</option>
         		<option value="2" >本科</option>
         		<option value="3" >研究生</option>
-        		<option value="4" >>博士</option>
+        		<option value="4" >博士</option>
         	</select>
         </td>
     </tr>
 	<tr>
         <td width="10%" class="tableleft">备注</td>
-        <td><textarea name="remark"></textarea></td>
+        <td><textarea name="remark" >${d.remark }</textarea></td>
 	</tr>
     <tr>
         <td colspan="2">

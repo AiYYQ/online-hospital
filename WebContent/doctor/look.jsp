@@ -50,49 +50,62 @@
 <table class="table table-bordered table-hover definewidth m10">
     <tr>
         <td width="10%" class="tableleft">姓名</td>
-        <td> </td>
+        <td>${doctor.name } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">证件号</td>
-        <td> </td>
+        <td>${doctor.cardno } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">手机</td>
-        <td> </td>
+        <td>${doctor.phone } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">性别</td>
         <td>
-        	 
+        	<c:if test="${doctor.sex ==1}">女</c:if>
+        	<c:if test="${doctor.sex ==0}">男</c:if>
         </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">年龄</td>
-        <td> </td>
+        <td>${doctor.age } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">出生年月</td>
-        <td> </td>
+        <td>${doctor.birthday } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">电子邮箱</td>
-        <td> </td>
+        <td>${doctor.email } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">所属科室</td>
         <td>
-        	
+        	<c:choose>
+	        		<c:when test="${doctor.department ==1}">急诊科</c:when>
+	        		<c:when test="${doctor.department ==2}">儿科</c:when>
+	        		<c:when test="${doctor.department ==3}">妇科</c:when>
+	        		<c:when test="${doctor.department ==4}">皮肤科</c:when>
+	        		<c:when test="${doctor.department ==5}">内分泌科</c:when>
+	        		<c:when test="${doctor.department ==6}">牙科</c:when>
+	        </c:choose>
         </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">学历</td>
         <td>
-        	
+        	<c:choose>
+	        		<c:when test="${doctor.education ==1}">高中</c:when>
+	        		<c:when test="${doctor.education ==2}">专科</c:when>
+	        		<c:when test="${doctor.education ==3}">本科</c:when>
+	        		<c:when test="${doctor.education ==4}">研究生</c:when>
+	        </c:choose>
         </td>
     </tr>
 	<tr>
         <td width="10%" class="tableleft">备注</td>
-        <td> </td>
+        <td>${doctor.remark } </td>
 	</tr>
     <tr>
         <td colspan="2">

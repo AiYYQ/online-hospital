@@ -42,8 +42,8 @@
 		<div class="c1">
 			优秀就业-在线医疗管理系统
 			<span id="">
-				欢迎您，XXX！  
-				<a href="#" target="_parent">【退出】</a>
+				欢迎您，${sessionScope.user.username }!
+				<a href="user?method=logout" target="_parent">【退出】</a>
 			</span>
 		</div>
 		<div class="c2"></div>

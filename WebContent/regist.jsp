@@ -169,10 +169,23 @@
                         remote:"该邮箱已经存在"
                     }
                 },
-                errorElement: "error",
-                submitHandler:function(form){
-                    form.submit();
-                }
+                errorElement: "error"
+            });
+
+            $("#login").click(function(){
+                $.ajax({
+                    url:"${path}/user",
+                    data:$("form").serialize(),
+                    type:"post",
+                    success:function(data){
+                        if(data){
+                            window.location.href = "login.jsp";
+                        }else{
+                            window.location.href = "regist.jsp";
+                        }
+                        
+                    }
+                });
             })
         })
     </script>
