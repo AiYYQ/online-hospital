@@ -48,19 +48,21 @@
 </head>
 <body>
 
-<form action="${path }medicine?method=findMedicineByPage" method="post" class="definewidth m20">
+<form action="${path }medicine" method="post" class="definewidth m20" id="formData">
+	<input type="hidden" name="method" value="findAllMedicine" />
+	<input type="hidden" name="pageIndex" value="${pUtils.currentPage }" />
 	<table class="table table-bordered table-hover definewidth m10">
 	    <tr>
 	        <td width="10%" class="tableleft">药品名称：</td>
-	        <td><input type="text" id="name" name="name" value=""/></td>
+	        <td><input type="text" id="name" name="name" value="${name }"/></td>
 			
 	        <td width="10%" class="tableleft">药品类型：</td>
 	        <td>
 		        <select name="type" id="type">
-		        	<option value="0" >==请选择==</option>
-		       		<option value="1" >处方药</option>
-			        <option value="2" >中药</option>
-			        <option value="3" >西药</option>
+		        	<option value="" >==请选择==</option>
+		       		<option value="1" <c:if test="${type ==1}">selected</c:if>>处方药</option>
+			        <option value="2" <c:if test="${type ==2}">selected</c:if>>中药</option>
+			        <option value="3" <c:if test="${type ==3}">selected</c:if>>西药</option>
 		        </select>
 	        </td>
 	    </tr>
@@ -88,20 +90,36 @@
     </tr>
     </thead>
     <tbody>
-    	
+    	<c:forEach items="${pUtils.pageList }" var="me">
+    		<tr>
+		    	<th><input type="checkbox" value="${me.mid }"></th>
+		        <th>${me.mid }</th>
+		        <th>${me.name }</th>
+		        <th><img src=${me.picture } width="200px" height="100px" /></th>
+		        <th>
+		        	<c:choose>
+		        		<c:when test="${me.type ==1}">处方药</c:when>
+		        		<c:when test="${me.type ==2}">中药</c:when>
+		        		<c:when test="${me.type ==3}">西药</c:when>
+	        		</c:choose>	
+		        </th>
+		        <th>${me.descs }</th>
+		        <th><a href="#">修改</a>>>><a href="#">详情</a></th>
+    		</tr>
+    	</c:forEach>
      </tbody>
   </table>
   
   <table class="table table-bordered table-hover definewidth m10" >
   	<tr><th colspan="5">  
   			<div class="inline pull-right page">
-	          <a href="" >首页</a> 
-	          <a href="">上一页</a>     
-	          <a href="" >下一页</a> 
-	          <a href="" >尾页</a>
+	          <a href="javascript:void(0)" onclick="pointPage(1)">首页</a> 
+	          <a href="javascript:void(0)" onclick="pointPage(${pUtils.prePage})">上一页</a>     
+	          <a href="javascript:void(0)" onclick="pointPage(${pUtils.nextPage})">下一页</a> 
+	          <a href="javascript:void(0)" onclick="pointPage(${pUtils.pageCount})">尾页</a>
 			  &nbsp;&nbsp;&nbsp;
-			     共<span class='current'></span>条记录
-			  <span class='current'>  </span>页
+			     共<span class='current'>${pUtils.totalCount }</span>条记录
+			  <span class='current'>${pUtils.pageCount }  </span>页
 		  </div>
 		 <div>
 			<button type="button" class="btn btn-success" id="newNav">添加新药</button>	
@@ -112,4 +130,31 @@
   </table>
   
 </body>
+<script type="text/javascript">
+	$("#newNav").click(function(){
+		
+	});
+	function delAll(){
+		var ids = "";
+		$("input:checked").each(function(){
+			var id = $(this).val();
+			ids += ","+id;
+		})
+		window.location.href = "${path}medicine?method=deleteMedicine&id="+ids;
+	};
+	$("#ret").click(function(){
+		$("#name").val("");
+		$("#type").val("");
+	});
+	function pointPage(pageIndex){
+		$("[name='pageIndex']").val(pageIndex);
+		$("#formData").submit();
+	}
+	function checkall(){
+		var flag = $("#checkall").prop("checked");
+		$("input:checkbox").each(function(){
+			$(this).prop("checked",flag);
+		})
+	}
+</script>
 </html>
