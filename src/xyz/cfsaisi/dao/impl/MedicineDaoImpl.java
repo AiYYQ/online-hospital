@@ -1,6 +1,7 @@
 package xyz.cfsaisi.dao.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -102,6 +103,40 @@ public class MedicineDaoImpl implements MedicineDao {
 			e.printStackTrace();
 		}
 		return medicine;
+	}
+
+	@Override
+	public int updateMedicine(Medicine medicine) {
+		String sql = "update medicine set picture=?,inprice=?,salprice=?,name=?,type=?,descs=?,qualitydate=?,description=?,producefirm=?,readme=?,remark=? where mid=?";
+		int row = 0;
+		try {
+			row = qRunner.update(sql, medicine.getPicture(),
+					medicine.getInprice(),medicine.getSalprice(),medicine.getName(),
+					medicine.getType(),medicine.getDescs(),medicine.getQualitydate(),
+					medicine.getDescription(),medicine.getProduceFirm(),medicine.getReadme(),
+					medicine.getRemark(),medicine.getMid());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return row;
+	}
+
+	@Override
+	public List<Medicine> findMedicineById(String[] split) {
+		List<Medicine> list = new ArrayList<Medicine>();
+		String sql = "select picture from medicine where mid = ?";
+		for (int i = 0; i < split.length; i++) {
+			Medicine medicine = null;
+			try {
+				medicine = qRunner.query(sql, new BeanHandler<Medicine>(Medicine.class), split[i]);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			list.add(medicine);
+		}
+		return list;
 	}
 
 }

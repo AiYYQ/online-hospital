@@ -93,7 +93,7 @@
 		    	<th><input type="checkbox" value="${me.mid }"></th>
 		        <th>${me.mid }</th>
 		        <th>${me.name }</th>
-		        <th><img src="/${me.picture }" width="200px" height="100px" /></th>
+		        <th><img src="/${me.picture }" style="width: 200px;height: 100px" /></th>
 		        <th>
 		        	<c:choose>
 		        		<c:when test="${me.type ==1}">处方药</c:when>

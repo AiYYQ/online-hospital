@@ -53,7 +53,7 @@
     </script>
 </head>
 <body>
-<form action="" method="post" class="definewidth m20" enctype="multipart/form-data">
+<form action="${path }medicine" method="post" class="definewidth m20" enctype="multipart/form-data">
 <input type="hidden" name="method" value="updateMedicine">
 <table class="table table-bordered table-hover definewidth m10">
     <tr>
@@ -65,54 +65,54 @@
         <td>
         <input type="hidden" name="oldpicture" value="${me.picture }"/>
         <input type="file" name="picture"/>
-        <img  width="80px" height="50px" src="">
+        <img  width="80px" height="50px" src="/${me.picture }">
         </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">进价</td>
-        <td><input type="text" name="inPrice" value=""/></td>
+        <td><input type="text" name="inPrice" value="${me.inprice }"/></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">售价</td>
-        <td><input type="text" name="salPrice" value=""/></td>
+        <td><input type="text" name="salPrice" value="${me.salprice }"/></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">药品名称</td>
-        <td><input type="text" name="name" value=""/></td>
+        <td><input type="text" name="name" value="${me.name }"/></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">药品类型</td>
         <td>
-        	<input type="radio" name="type" value="1" />处方药&nbsp;&nbsp;&nbsp;
-        	<input type="radio" name="type" value="2" />中药&nbsp;&nbsp;&nbsp;
-        	<input type="radio" name="type" value="3" />西药
+        	<input type="radio" name="type" value="1" <c:if test="${me.type ==1 }">checked</c:if>/>处方药&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="type" value="2" <c:if test="${me.type ==2 }">checked</c:if>/>中药&nbsp;&nbsp;&nbsp;
+        	<input type="radio" name="type" value="3" <c:if test="${me.type ==3 }">checked</c:if>/>西药
         </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">简单描述</td>
-        <td><input type="text" name="descs" value=""/></td>
+        <td><input type="text" name="descs" value="${me.descs }"/></td>
     </tr>
 
     <tr>
         <td width="10%" class="tableleft">保质期</td>
-        <td><input type="text" name="qualityDate" value=""/>月</td>
+        <td><input type="text" name="qualityDate" value="${me.qualitydate }"/>月</td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">详细描述</td>
-        <td><textarea name="description"></textarea></td>
+        <td><textarea name="description">${me.description }</textarea></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">生产厂商</td>
-        <td><textarea name="produceFirm"></textarea></td>
+        <td><textarea name="produceFirm">${me.produceFirm }</textarea></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">服用说明</td>
-        <td><input type="text" name="readme" value=""/></td>
+        <td><input type="text" name="readme" value="${me.readme }"/></td>
     </tr>
    
 	<tr>
         <td width="10%" class="tableleft">备注</td>
-        <td><textarea name="remark"></textarea></td>
+        <td><textarea name="remark">${me.remark }</textarea></td>
 	</tr>
     <tr>
         <td colspan="2">

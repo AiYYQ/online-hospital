@@ -17,4 +17,8 @@ public interface MedicineService {
 
 	Medicine lookMedicineById(String id);
 
+	int updateMedicine(Medicine medicine);
+
+	List<Medicine> findMedicineById(String[] split);
+
 }

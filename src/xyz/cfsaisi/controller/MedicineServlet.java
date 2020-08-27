@@ -1,5 +1,6 @@
 package xyz.cfsaisi.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -45,6 +46,16 @@ public class MedicineServlet extends BaseServlet{
 		String ids = request.getParameter("id");
 		ids = ids.trim();
 		String[] split = ids.split(" ");
+		//获取需要删除的数据对应的文件名称
+		List<Medicine> mList = mService.findMedicineById(split);
+		for (int i = 0; i < mList.size(); i++) {
+			if (mList.get(i)!=null) {
+				File file = new File("e:/upload/"+mList.get(i).getPicture());
+				if (file.exists()) {
+					file.delete();
+				}
+			}
+		}
 		int row = mService.deleteMedicine(split);
 		response.sendRedirect("medicine?method=findAllMedicine");
 	}
@@ -89,5 +100,37 @@ public class MedicineServlet extends BaseServlet{
 		request.setAttribute("me", medicine);
 		request.getRequestDispatcher("medicine/edit.jsp").forward(request, response);
 	}
-	
+	public void updateMedicine(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+		String mid = request.getParameter("mid");
+		String oldpicture = request.getParameter("oldpicture");
+		Part part = request.getPart("picture");
+		String filename = UUID.randomUUID().toString()+".jpg";
+		String inprice = request.getParameter("inPrice");
+		String salprice = request.getParameter("salPrice");
+		String name = request.getParameter("name");
+		String type = request.getParameter("type");
+		Integer type2 = null;
+		if (type != null && type != "") {
+			type2 = Integer.parseInt(type);
+		}
+		String descs = request.getParameter("descs");
+		String qualitydate = request.getParameter("qualityDate");
+		Integer qualitydate2 = null;
+		if (qualitydate != null && qualitydate != "") {
+			qualitydate2 = Integer.parseInt(qualitydate);
+		}
+		String description = request.getParameter("description");
+		String produceFirm = request.getParameter("produceFirm");
+		String readme = request.getParameter("readme");
+		String remark = request.getParameter("remark");
+		//删除数据对应的源图片
+		File file = new File("e:/upload/"+oldpicture);
+		if (file.exists()) {
+			file.delete();
+		}
+		Medicine medicine = new Medicine(mid, filename, inprice, salprice, name, type2, descs, qualitydate2, description, produceFirm, readme, remark);
+		int row = mService.updateMedicine(medicine);
+		part.write("e:/upload/"+filename);
+		response.sendRedirect("medicine?method=findAllMedicine");
+	}
 }

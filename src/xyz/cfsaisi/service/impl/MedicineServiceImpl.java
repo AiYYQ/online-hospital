@@ -37,4 +37,14 @@ public class MedicineServiceImpl implements MedicineService {
 		return mDao.lookMedicineById(id);
 	}
 
+	@Override
+	public int updateMedicine(Medicine medicine) {
+		return mDao.updateMedicine(medicine);
+	}
+
+	@Override
+	public List<Medicine> findMedicineById(String[] split) {
+		return mDao.findMedicineById(split);
+	}
+
 }
