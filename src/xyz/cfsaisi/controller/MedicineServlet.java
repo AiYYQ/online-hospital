@@ -123,14 +123,20 @@ public class MedicineServlet extends BaseServlet{
 		String produceFirm = request.getParameter("produceFirm");
 		String readme = request.getParameter("readme");
 		String remark = request.getParameter("remark");
-		//删除数据对应的源图片
-		File file = new File("e:/upload/"+oldpicture);
-		if (file.exists()) {
-			file.delete();
+		String temp;
+		if (part.getSize()!=0) {
+			temp = filename;
+			part.write("e:/upload/"+filename);
+			//删除数据对应的源图片
+			File file = new File("e:/upload/"+oldpicture);
+			if (file.exists()) {
+				file.delete();
+			}
+		}else {
+			temp = oldpicture;
 		}
-		Medicine medicine = new Medicine(mid, filename, inprice, salprice, name, type2, descs, qualitydate2, description, produceFirm, readme, remark);
+		Medicine medicine = new Medicine(mid, temp, inprice, salprice, name, type2, descs, qualitydate2, description, produceFirm, readme, remark);
 		int row = mService.updateMedicine(medicine);
-		part.write("e:/upload/"+filename);
 		response.sendRedirect("medicine?method=findAllMedicine");
 	}
 }
