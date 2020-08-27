@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../Js/ckform.js"></script>
     <script type="text/javascript" src="../Js/common.js"></script>
     <script type="text/javascript" src="../Js/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript" src="../Js/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="${path }Js/My97DatePicker/WdatePicker.js"></script>
  
 
     <style type="text/css">

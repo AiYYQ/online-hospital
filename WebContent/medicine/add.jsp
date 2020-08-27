@@ -44,14 +44,14 @@
     <script type="text/javascript">
     $(function () {       
 		$('#backid').click(function(){
-				window.location.href="${path}medicine?method=findMedicineByPage";
+				window.location.href="${path}medicine?method=findAllMedicine";
 		 });
     });
     </script>
 </head>
 <body>
 
-<form action="" method="post" class="definewidth m20" enctype="multipart/form-data">
+<form action="${path }medicine" method="post" class="definewidth m20" enctype="multipart/form-data">
 <input type="hidden" name="method" value="insertMedicine">
 <table class="table table-bordered table-hover definewidth m10">
     <tr>

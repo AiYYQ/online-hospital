@@ -47,7 +47,7 @@
     <script type="text/javascript">
     $(function () {       
 		$('#backid').click(function(){
-				window.location.href="${path}medicine?method=findMedicineByPage";
+				window.location.href="${path}medicine?method=findAllMedicine";
 		 });
     });
     </script>
@@ -57,54 +57,58 @@
 <table class="table table-bordered table-hover definewidth m10">
     <tr>
         <td width="10%" class="tableleft">药品编号</td>
-        <td> </td>
+        <td>${me.mid } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">图片</td>
-        <td><img src=" " width="50px" height="50px"/></td>
+        <td><img src="/${me.picture } " width="50px" height="50px"/></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">进价</td>
-        <td> </td>
+        <td>${me.inprice } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">售价</td>
-        <td> </td>
+        <td>${me.salprice } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">药品名称</td>
-        <td> </td>
+        <td>${me.name } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">药品类型</td>
         <td>
-        	 
+        	 <c:choose>
+        	 	<c:when test="${me.type ==1 }">处方药</c:when>
+        	 	<c:when test="${me.type ==2 }">中药</c:when>
+        	 	<c:when test="${me.type ==3 }">西药</c:when>
+        	 </c:choose>
         </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">简单描述</td>
-        <td> </td>
+        <td>${me.descs } </td>
     </tr>
 
     <tr>
         <td width="10%" class="tableleft">保质期</td>
-        <td> </td>
+        <td>${me.qualitydate } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">详细描述</td>
-        <td> </td>
+        <td>${me.description } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">生产厂商</td>
-        <td> </td>
+        <td>${me.produceFirm } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">服用说明</td>
-        <td> </td>
+        <td>${me.readme } </td>
     </tr>
 	<tr>
         <td width="10%" class="tableleft">备注</td>
-        <td> </td>
+        <td>${me.remark } </td>
 	</tr>
     <tr>
         <td colspan="2">

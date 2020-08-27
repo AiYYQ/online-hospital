@@ -58,12 +58,12 @@
 <table class="table table-bordered table-hover definewidth m10">
     <tr>
         <td width="10%" class="tableleft">药品编号</td>
-        <td><input type="text" name="mid" value="" readonly="readonly"/></td>
+        <td><input type="text" name="mid" value="${me.mid }" readonly="readonly"/></td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">图片</td>
         <td>
-        <input type="hidden" name="oldpicture" value=""/>
+        <input type="hidden" name="oldpicture" value="${me.picture }"/>
         <input type="file" name="picture"/>
         <img  width="80px" height="50px" src="">
         </td>

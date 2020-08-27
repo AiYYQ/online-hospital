@@ -15,10 +15,8 @@
     <title>药品查询</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
     <link rel="stylesheet" type="text/css" href="../Css/style.css" />
     <script type="text/javascript" src="../Js/jquery.js"></script>
-    <script type="text/javascript" src="../Js/jquery.sorted.js"></script>
     <script type="text/javascript" src="../Js/bootstrap.js"></script>
     <script type="text/javascript" src="../Js/ckform.js"></script>
     <script type="text/javascript" src="../Js/common.js"></script>
@@ -50,7 +48,7 @@
 
 <form action="${path }medicine" method="post" class="definewidth m20" id="formData">
 	<input type="hidden" name="method" value="findAllMedicine" />
-	<input type="hidden" name="pageIndex" value="${pUtils.currentPage }" />
+	<input type="hidden" name="pageIndex" value="${page.currentPage }" />
 	<table class="table table-bordered table-hover definewidth m10">
 	    <tr>
 	        <td width="10%" class="tableleft">药品名称：</td>
@@ -80,7 +78,7 @@
 <table class="table table-bordered table-hover definewidth m10" >
    <thead>
     <tr>
-    	<th><input type="checkbox" id="checkall" onChange="checkall();"></th>
+    	<th><input type="checkbox" id="checkall" onChange="checkall();" value=""></th>
         <th>药品编号</th>
         <th>药品名称</th>
         <th>图片</th>
@@ -95,7 +93,7 @@
 		    	<th><input type="checkbox" value="${me.mid }"></th>
 		        <th>${me.mid }</th>
 		        <th>${me.name }</th>
-		        <th><img src=${me.picture } width="200px" height="100px" /></th>
+		        <th><img src="/${me.picture }" width="200px" height="100px" /></th>
 		        <th>
 		        	<c:choose>
 		        		<c:when test="${me.type ==1}">处方药</c:when>
@@ -104,7 +102,7 @@
 	        		</c:choose>	
 		        </th>
 		        <th>${me.descs }</th>
-		        <th><a href="#">修改</a>>>><a href="#">详情</a></th>
+		        <th><a href="${path }medicine?method=modifyMedicineById&id=${me.mid }">修改</a>>>><a href="${path }medicine?method=lookMedicineById&id=${me.mid }">详情</a></th>
     		</tr>
     	</c:forEach>
      </tbody>
@@ -132,13 +130,15 @@
 </body>
 <script type="text/javascript">
 	$("#newNav").click(function(){
-		
+		window.location.href = "${path}medicine/add.jsp";
 	});
 	function delAll(){
 		var ids = "";
 		$("input:checked").each(function(){
 			var id = $(this).val();
-			ids += ","+id;
+			if(id != null){
+				ids += id+" "
+			}
 		})
 		window.location.href = "${path}medicine?method=deleteMedicine&id="+ids;
 	};

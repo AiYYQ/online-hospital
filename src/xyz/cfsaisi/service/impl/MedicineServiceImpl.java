@@ -22,4 +22,19 @@ public class MedicineServiceImpl implements MedicineService {
 		return mDao.findMedicine(name,type,pUtils);
 	}
 
+	@Override
+	public int insertMedicine(Medicine medicine) {
+		return mDao.insertMedicine(medicine);
+	}
+
+	@Override
+	public int deleteMedicine(String[] split) {
+		return mDao.deleteMedicine(split);
+	}
+
+	@Override
+	public Medicine lookMedicineById(String id) {
+		return mDao.lookMedicineById(id);
+	}
+
 }

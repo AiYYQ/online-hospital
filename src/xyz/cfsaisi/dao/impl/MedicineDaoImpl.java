@@ -4,10 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import xyz.cfsaisi.dao.MedicineDao;
+import xyz.cfsaisi.entity.Doctor;
 import xyz.cfsaisi.entity.Medicine;
 import xyz.cfsaisi.utils.JDBCUtils;
 import xyz.cfsaisi.utils.PageUtils;
@@ -42,7 +44,7 @@ public class MedicineDaoImpl implements MedicineDao {
 			sql.append(" and name like '%" + name + "%'");
 		}
 		if (type != null && type != "") {
-			sql.append(" and type="+type);
+			sql.append(" and type="+Integer.parseInt(type));
 		}
 		sql.append(" limit "+pUtils.getCurrentStart()+","+pUtils.getPageSize());
 		List<Medicine> list = null;
@@ -53,6 +55,53 @@ public class MedicineDaoImpl implements MedicineDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	@Override
+	public int insertMedicine(Medicine medicine) {
+		String sql = "insert into medicine(mid,picture,inprice,salprice,name,type,descs,qualitydate,description,producefirm,readme,remark) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+		int row = 0;
+		try {
+			row = qRunner.update(sql, medicine.getMid(),medicine.getPicture(),
+					medicine.getInprice(),medicine.getSalprice(),medicine.getName(),
+					medicine.getType(),medicine.getDescs(),medicine.getQualitydate(),
+					medicine.getDescription(),medicine.getProduceFirm(),medicine.getReadme(),
+					medicine.getRemark());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return row;
+	}
+
+	@Override
+	public int deleteMedicine(String[] split) {
+		String sql = "delete from medicine where mid = ?";
+		int row = 0;
+		for (int i = 0; i < split.length; i++) {
+			int j = 0;
+			try {
+				j = qRunner.update(sql, split[i]);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			row += j;
+		}
+		return row;
+	}
+
+	@Override
+	public Medicine lookMedicineById(String id) {
+		String sql = "select * from medicine where mid = ?";
+		Medicine medicine = null;
+		try {
+			medicine = qRunner.query(sql, new BeanHandler<Medicine>(Medicine.class),id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return medicine;
 	}
 
 }

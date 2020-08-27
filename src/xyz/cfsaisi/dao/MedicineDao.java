@@ -11,4 +11,10 @@ public interface MedicineDao {
 
 	List<Medicine> findMedicine(String name, String type, PageUtils<Medicine> pUtils);
 
+	int insertMedicine(Medicine medicine);
+
+	int deleteMedicine(String[] split);
+
+	Medicine lookMedicineById(String id);
+
 }
