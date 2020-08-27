@@ -18,6 +18,8 @@ public interface DoctorDao {
 	int insertDoctor(Doctor doctor);
 
 	int deleteDoctor(String[] ids);
+
+	List<Doctor> findAllDoctor();
 	
 	
 

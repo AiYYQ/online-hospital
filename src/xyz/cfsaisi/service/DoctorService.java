@@ -18,4 +18,6 @@ public interface DoctorService {
 
 	int deleteDoctor(String[] ids);
 
+	List<Doctor> findAllDoctor();
+
 }

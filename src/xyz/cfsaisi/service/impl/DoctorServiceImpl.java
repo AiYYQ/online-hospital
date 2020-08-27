@@ -37,5 +37,9 @@ public class DoctorServiceImpl implements DoctorService {
 	public int deleteDoctor(String[] ids) {
 		return doctorDao.deleteDoctor(ids);
 	}
+	@Override
+	public List<Doctor> findAllDoctor() {
+		return doctorDao.findAllDoctor();
+	}
 
 }

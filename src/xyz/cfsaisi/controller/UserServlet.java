@@ -93,13 +93,11 @@ public class UserServlet extends BaseServlet{
 	
 	
 	public void checkCode(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		System.out.println("===========1");
 		String parameter = request.getParameter("verify");
 		String code = (String)request.getSession().getAttribute("code");
 		PrintWriter writer = response.getWriter();
 		if (code!=null) {
 			if (code.equalsIgnoreCase(parameter)) {
-				System.out.println("=======2");
 				writer.print(false);
 			}else {
 				writer.print(true);

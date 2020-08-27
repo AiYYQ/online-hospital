@@ -49,66 +49,76 @@
 <table class="table table-bordered table-hover definewidth m10">
     <tr>
         <td width="10%" class="tableleft">病历号</td>
-        <td> </td>
+        <td>${re.rid } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">姓名</td>
-        <td> </td>
+        <td>${re.name } </td>
     </tr>
 
     <tr>
         <td width="10%" class="tableleft">身份证号</td>
-        <td> </td>
+        <td>${re.idcard } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">挂号费</td>
-        <td> 元</td>
+        <td>${re.registermoney } 元</td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">社保号</td>
-        <td> </td>
+        <td>${re.sinumber } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">联系电话</td>
-        <td> </td>
+        <td>${re.phone } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">是否自费</td>
         <td>
-        	 
+        	 <c:if test="${re.ispay ==1}">非自费</c:if>
+        	 <c:if test="${re.ispay ==0}">自费</c:if>
         </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">性别</td>
         <td>
-	         
+	         <c:if test="${re.sex ==1}">女</c:if>
+        	 <c:if test="${re.sex ==0}">男</c:if>
        	</td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">年龄</td>
-        <td> </td>
+        <td>${re.age } </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">初复诊</td>
         <td>
-        	 
+        	 <c:if test="${re.consultation ==1}">复诊</c:if>
+        	 <c:if test="${re.consultation ==0}">初诊</c:if>
         </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">所挂科室</td>
         <td>
-        	 
+        	 <c:choose>
+	        		<c:when test="${re.department ==1}">急诊科</c:when>
+	        		<c:when test="${re.department ==2}">儿科</c:when>
+	        		<c:when test="${re.department ==3}">妇科</c:when>
+	        		<c:when test="${re.department ==4}">皮肤科</c:when>
+	        		<c:when test="${re.department ==5}">内分泌科</c:when>
+	        		<c:when test="${re.department ==6}">牙科</c:when>
+	        	</c:choose>
         </td>
     </tr>
     <tr>
         <td width="10%" class="tableleft">指定医生</td>
         <td>
-        	 
+        	 ${re.doctor.name }
         </td>
     </tr>
 	<tr>
         <td width="10%" class="tableleft">备注</td>
-        <td> </td>
+        <td>${re.remark } </td>
 	</tr>
     <tr>
         <td colspan="2">

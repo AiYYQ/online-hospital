@@ -48,26 +48,27 @@
 </head>
 <body>
 
-<form action="${path }register" method="post" class="definewidth m20">
-<input name="method" value="findRegisterByPage" type="hidden"/>
+<form action="${path }register" method="post" class="definewidth m20" id="dataForm">
+<input name="method" value="findAllRegister" type="hidden"/>
+<input type="hidden" name="currentPage" value="${page.currentPage }">
 <table class="table table-bordered table-hover definewidth m10">
     <tr>
         <td width="10%" class="tableleft">病历号：</td>
-        <td><input type="text" id="rid" name="rid" value=""/></td>
+        <td><input type="text" id="rid" name="rid" value="${rid }"/></td>
 		
         <td width="10%" class="tableleft">姓名：</td>
-        <td><input type="text" id="name" name="name" value=""/></td>
+        <td><input type="text" id="name" name="name" value="${name }"/></td>
 		
         <td width="10%" class="tableleft">科室：</td>
         <td>
         	<select name="department" id="department">
-	        	<option value="0" >==请选择==</option>
-	        	<option value="1" >急诊科</option>
-	        	<option value="2" >儿科</option>
-	        	<option value="3" >妇科</option>
-	        	<option value="4" >皮肤科</option>
-	        	<option value="5" >内分泌科</option>
-	        	<option value="6" >牙科</option>
+	        	<option value="" >==请选择==</option>
+	        	<option value="1" <c:if test="${department ==1}">selected</c:if>>急诊科</option>
+	        <option value="2" <c:if test="${department ==2}">selected</c:if>>儿科</option>
+	        <option value="3" <c:if test="${department ==3}">selected</c:if>>妇科</option>
+	        <option value="4" <c:if test="${department ==4}">selected</c:if>>皮肤科</option>
+	        <option value="5" <c:if test="${department ==5}">selected</c:if>>内分泌科</option>
+	        <option value="6" <c:if test="${department ==6}">selected</c:if>>牙科</option>
         	</select>
         </td>
     </tr>
@@ -96,20 +97,48 @@
     </tr>
     </thead>
     <tbody>
-    	
+    	<c:forEach items="${pUtils.pageList }" var="re">
+    	<tr>
+	    	<th><input type="checkbox" id="checkall" onChange="checkall();"></th>
+	        <th>${re.rid }</th>
+	        <th>${re.name }</th>
+	        <th>${re.doctor.name }</th>
+	        <th>${re.registerdate }</th>
+	        <th>
+	        	<c:choose>
+	        		<c:when test="${re.department ==1}">急诊科</c:when>
+	        		<c:when test="${re.department ==2}">儿科</c:when>
+	        		<c:when test="${re.department ==3}">妇科</c:when>
+	        		<c:when test="${re.department ==4}">皮肤科</c:when>
+	        		<c:when test="${re.department ==5}">内分泌科</c:when>
+	        		<c:when test="${re.department ==6}">牙科</c:when>
+	        	</c:choose>
+	        </th>
+	        <th>
+	        	<c:choose>
+	        		<c:when test="${re.status ==1}">挂号</c:when>
+	        		<c:when test="${re.status ==2}">退号</c:when>
+	        		<c:when test="${re.status ==3}">已住院</c:when>
+	        		<c:when test="${re.status ==4}">已出院</c:when>
+	        		<c:when test="${re.status ==5}">已结算</c:when>
+	        	</c:choose>
+	        </th>
+	        <th><c:if test="${re.status ==1 }"><a href="${path }register?method=lookRegister&flag=false&id=${re.rid}">修改</a>>>></c:if><a href="${path }register?method=lookRegister&flag=true&id=${re.rid}">详细</a></th>
+    	</tr>
+    	</c:forEach>
      </tbody>
   </table>
   
   <table class="table table-bordered table-hover definewidth m10" >
   	<tr><th colspan="5">  
   		<div class="inline pull-right page">
-	          <a href="" >首页</a> 
-	          <a href="">上一页</a>     
-	          <a href="" >下一页</a> 
-	          <a href="" >尾页</a>
+	          <a href="javascript:void(0)" onclick="pointPage(1)">首页</a> 
+	          <a href="javascript:void(0)" onclick="pointPage(${pUtils.prePage})">上一页</a>     
+	          <a href="javascript:void(0)" onclick="pointPage(${pUtils.nextPage})" >下一页</a> 
+	          <a href="javascript:void(0)" onclick="pointPage(${pUtils.pageCount})" >尾页</a>
 			  &nbsp;&nbsp;&nbsp;
-			     共<span class='current'> </span>条记录
-			     <span class='current'> </span>页
+			     共<span class='current'>${pUtils.totalCount } </span>条记录
+			     <span class='current'>${pUtils.pageCount } </span>页
 		</div>
 		<div>
 		   <button type="button" class="btn btn-success" id="newNav">门诊挂号</button>&nbsp;&nbsp;&nbsp;
@@ -119,4 +148,27 @@
   </table>
   
 </body>
+<script type="text/javascript">
+function checkall(){
+	var flag = $("#checkall").prop("checked");
+	$("input:checkbox:gt(0)").prop("checked",flag);
+};
+function pointPage(pageIndex){
+	$("[name='currentPage']").val(pageIndex);
+	$("#dataForm").submit();
+};
+$("#newNav").click(function(){
+	window.location.href = "${path}doctor/add.jsp";
+});
+$("#delAll").click(function(){
+	var ids = "";
+	$("input:checked").each(function(){
+		var id = $(this).val();
+		if(id != null){
+			ids += " "+id
+		}
+	});
+	window.location.href = "${path}doctor?method=deleteDoctor&id="+ids;
+});
+</script>
 </html>

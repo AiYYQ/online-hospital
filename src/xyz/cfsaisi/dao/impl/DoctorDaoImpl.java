@@ -107,10 +107,22 @@ public class DoctorDaoImpl implements DoctorDao {
 				row += j;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return row;
+	}
+
+	@Override
+	public List<Doctor> findAllDoctor() {
+		String sql = "select * from doctor";
+		List<Doctor> list = null;
+		try {
+			list = qRunner.query(sql, new BeanListHandler<Doctor>(Doctor.class));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }
